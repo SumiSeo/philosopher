@@ -6,38 +6,38 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:02:09 by sumseo            #+#    #+#             */
-/*   Updated: 2024/05/16 17:44:50 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/05/17 21:26:02 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *arg)
+void	parsing_argv(char **argv)
 {
-	(void)arg;
-	printf("Test from threads\n");
-	sleep(3);
-	printf("Ending thread\n");
-	return (NULL);
+	int	i;
+	int	converted_argv;
+	int	limit_flag;
+
+	limit_flag = 1;
+	i = 1;
+	while (argv[i])
+	{
+		if (argv[i][0] >= 'a' && argv[i][0] <= 'z')
+			exit_program("There is CHAR type in arguments", 4);
+		converted_argv = ft_atoi(argv[i], &limit_flag);
+		if (limit_flag == 2)
+			exit_program("Argument is out of range", 2);
+		if (i == 1 && converted_argv > 200)
+			exit_program("Maximum number of philosophers are 200", 3);
+		printf("each argument %d : %s\n", i, argv[i]);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	// information about thread
-	(void)argc;
-	(void)argv;
-	pthread_t t1;
-	pthread_t t2;
-
-	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
-		return (1);
-	if (pthread_create(&t2, NULL, &routine, NULL) != 0)
-		return (2);
-	// finish thread and then finish process
-	if (pthread_join(t1, NULL) != 0)
-		return (3);
-	if (pthread_join(t2, NULL) != 0)
-		return (4);
-
-	return (0);
+	if (argc < 5 || argc >= 7)
+		exit_program("Wrong argument number", 1);
+	else
+		parsing_argv(argv);
 }
