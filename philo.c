@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:02:09 by sumseo            #+#    #+#             */
-/*   Updated: 2024/05/17 22:35:37 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/05/17 22:37:50 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	parsing_argv(char **argv, t_philo *philo)
 
 	limit_flag = 1;
 	i = 1;
-	if (argv == NULL)
-		exit_program("Invalid arguments", 1);
 	while (argv[i])
 	{
 		if (argv[i][0] >= 'a' && argv[i][0] <= 'z')
@@ -46,14 +44,12 @@ void	parsing_argv(char **argv, t_philo *philo)
 int	main(int argc, char **argv)
 {
 	t_philo *philo;
+	philo = malloc(sizeof(t_philo));
 
 	if (argc < 5 || argc >= 7)
 		exit_program("Wrong argument number", 1);
-
-	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
 		exit_program("Memory allocation failed", 5);
-
 	parsing_argv(argv, philo);
 	printf("philo check %d\n", philo->num_of_philos);
 }
