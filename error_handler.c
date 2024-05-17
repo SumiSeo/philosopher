@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 18:35:44 by sumseo            #+#    #+#             */
-/*   Updated: 2024/05/17 20:09:41 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/05/17 22:34:23 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	exit_program(char *s, int error)
 	else if (error == 3)
 		printf("%s\n", s);
 	else if (error == 4)
+		printf("%s\n", s);
+	else if (error == 5)
 		printf("%s\n", s);
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:02:12 by sumseo            #+#    #+#             */
-/*   Updated: 2024/05/17 21:25:56 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/05/17 21:56:13 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-// error handler
-void				exit_program(char *s, int error);
-
-// parsing arguments
-void				parsing_argv(char **argv);
-int					ft_atoi(const char *nbtr, int *error);
 
 // struct
 typedef struct s_philo
@@ -40,5 +33,12 @@ typedef struct s_philo
 	bool			is_sleeping;
 	bool			is_thinking;
 }					t_philo;
+
+// error handler
+void				exit_program(char *s, int error);
+
+// parsing arguments
+void				parsing_argv(char **argv, t_philo *philo);
+int					ft_atoi(const char *nbtr, int *error);
 
 // init thread
