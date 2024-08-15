@@ -7,7 +7,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-
 typedef struct s_philos
 {
 	int num_of_philo;
@@ -29,5 +28,12 @@ typedef struct s_philo
 	long thread_start;
 	pthread_t t_thread;
 } t_philo;
+
+
+//error handler
+void print_error(char *msg);
+
+
+//parsing
 
 #endif

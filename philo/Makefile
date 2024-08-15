@@ -1,7 +1,7 @@
 NAME = philo
 
 # SRCS AND OBJS FOR COMPILING
-SRCS = philo.c
+SRCS = philo.c error_handler/error_print.c utils/parsing_utils.c
 
 OBJ_DIR = obj 
 
@@ -20,7 +20,7 @@ all : $(NAME)
 # 				$(CC) $(CFLAGS) $(DEBUGGER) -c $< -o $@
 %.o : %.c 
 		$(CC) $(CFLAGS) -c $< -o $@ #(DEBUGGER)
-		
+
 $(NAME) : $(OBJS)
 			$(CC) $(OBJS) -o $(NAME) 
 clean : 
