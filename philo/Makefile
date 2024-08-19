@@ -1,7 +1,7 @@
 NAME = philo
 
 # SRCS AND OBJS FOR COMPILING
-SRCS = philo.c error_handler/error_print.c utils/parsing_utils.c
+SRCS = philo.c error_handler/error_print.c utils/parsing_utils.c \
 
 OBJ_DIR = obj 
 
@@ -11,7 +11,7 @@ OBJS = $(SRCS:%.c=%.o)
 
 #FLAGS
 CC = clang
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -pthread -Wall -Werror -Wextra 
 DEBUGGER = -g3
 
 all : $(NAME)

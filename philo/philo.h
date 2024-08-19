@@ -7,6 +7,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include "limits.h"
+
 typedef struct s_philos
 {
 	int num_of_philo;
@@ -19,7 +23,6 @@ typedef struct s_philos
 
 typedef struct s_philo
 {
-
 	int id;
 	int count_eat;
 	int left;
@@ -35,5 +38,8 @@ void print_error(char *msg);
 
 
 //parsing
+int	ft_atoi(const char *nbtr, int *error);
+
+void print_all_info(t_philos *philos);
 
 #endif
