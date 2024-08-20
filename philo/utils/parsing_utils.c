@@ -1,5 +1,14 @@
 #include "../philo.h"
 
+long long	get_time(void)
+{
+	struct timeval	mytime;
+
+	if (gettimeofday(&mytime, NULL) == -1)
+		return (-1);
+	return ((mytime.tv_sec * 1000) + (mytime.tv_usec / 1000));
+}
+
 int	ft_atoi(const char *nbtr, int *error)
 {
 	int		i;

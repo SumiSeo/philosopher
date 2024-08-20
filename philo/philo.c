@@ -1,85 +1,107 @@
 #include "philo.h"
+int init_mutex(t_arg *arg)
+{
+    int i;
+    if (pthread_mutex_init(&(arg->print), NULL))
+        return 1;
+    if (pthread_mutex_init(&(arg->time), NULL))
+        return 1;
+    arg->forks = malloc(sizeof(pthread_mutex_t) * arg->num_of_philo);
+    if (!(arg->forks))
+        return 1;
+    i = 0;
+    while (i < arg->num_of_philo)
+    {
+        if (pthread_mutex_init(&(arg->forks[i]), NULL))
+            return 1;
+        i++;
+    }
+    return 0;
+}
 
-int init_philos_info(t_philos *philos, char **argv)
+int init_info(t_arg *arg, char **argv)
 {
     int error;
 
     error = 0;
-    philos->is_alive = 1;
-    philos->num_of_philo = ft_atoi(argv[1], &error);
-    philos->time_to_die = ft_atoi(argv[2], &error);
-    philos->time_to_eat = ft_atoi(argv[3], &error);
-    philos->time_to_sleep = ft_atoi(argv[4], &error);
+    arg->num_of_philo = ft_atoi(argv[1], &error);
+    arg->time_to_die = ft_atoi(argv[2], &error);
+    arg->time_to_eat = ft_atoi(argv[3], &error);
+    arg->time_to_sleep = ft_atoi(argv[4], &error);
+    arg->thread_start = get_time();
 
+    if (arg->num_of_philo <= 0 || arg->time_to_eat <= 0 || arg->time_to_die <= 0 || arg->time_to_sleep <= 0)
+        return 1;
     if (argv[5] != NULL)
-    {
-        philos->num_of_must_eat = ft_atoi(argv[5], &error);
-        if (error)
-            philos->num_of_must_eat = -1;
-    }
-    else
-        philos->num_of_must_eat = -1;
-    if (error)
-    {
-        printf("Error in argument conversion\n");
-        return 0;
-    }
-    return 1;
+        arg->num_of_must_eat = ft_atoi(argv[5], &error);
+    if (init_mutex(arg))
+        return 1;
+    return 0;
 }
 
-void *routine()
+void *philo_act(void *argv)
 {
+    printf("HEllo I am thinkning\n");
+    // (void)philo;
+    (void)argv;
     return NULL;
 }
 
-void init_threads(t_philos *philos)
+int init_thread(t_arg *arg, t_philo *philo)
 {
-    pthread_t t1[philos->num_of_philo];
+   
     int i;
     i = 0;
-    while (i < philos->num_of_philo)
-    {
-        if (!pthread_create(&t1[i], NULL, &routine, NULL))
-            printf("thread created :%d\n", i);
+    while (i < arg->num_of_philo)
+    { 
+        philo->last_eat = get_time();
+        if (pthread_create(&(philo[i].thread), NULL, philo_act, &(philo[i])))
+            return 1;
         i++;
     }
     i = 0;
-    while (i < philos->num_of_philo)
+    while (i < arg->num_of_philo)
+        pthread_join(philo[i++].thread, NULL);
+    return 0;
+}
+
+int init_philo(t_arg *arg, t_philo **philo)
+{
+    int i;
+    i = 0;
+    *philo = malloc(sizeof(t_philo) * arg->num_of_philo);
+    if (!(*philo))
+        return 1;
+    while (i < arg->num_of_philo)
     {
-        pthread_join(t1[i], NULL);
-        printf("thread deleted :%d\n", i);
+        (*philo)[i].arg = arg;
+        (*philo)[i].id = i;
+        (*philo)[i].count_eat = 0;
+        (*philo)[i].left = i;
+        (*philo)[i].right = (i + 1) % arg->num_of_philo;
         i++;
     }
+    return 0;
 }
 
 int main(int argc, char **argv)
 {
 
-    t_philos *philos;
-    pthread_mutex_t mutex;
-
+    t_arg arg;
+    t_philo *philo;
     int errno;
-    philos = malloc(sizeof(t_philos));
-    if (!philos)
-    {
-        print_error("Memory allocation for philo-argv failed");
-        return 1;
-    }
-
+    memset(&arg, 0, sizeof(t_arg));
     if (argc != 5 && argc != 6)
         print_error("Please check argument number\n");
     else
     {
-        // check arguments
-        if (!init_philos_info(philos, argv))
-            return 1;
-        // create thread
-        pthread_mutex_init(&mutex,NULL);
-        init_threads(philos);
-                pthread_mutex_destroy(&mutex);
-        pthread_mutex_destroy(&mutex);
+        if (init_info(&arg, argv))
+            return print_error("args init fail\n");
+        if (init_philo(&arg, &philo))
+            return print_error("philo init fail\n");
+        if (init_thread(&arg, philo))
+            return (print_error("thread start fail"));
     }
-    //  print_all_info(philos);
-    free(philos);
+    print_all_info(&arg);
     return 0;
 }

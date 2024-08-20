@@ -1,15 +1,17 @@
 #include "../philo.h"
 
-void print_error(char *msg)
+int print_error(char *msg)
 {
-    printf("%s", msg);
+  printf("%s", msg);
+  return EXIT_FAILURE;
 }
 
-void print_all_info(t_philos *philos)
+void print_all_info(t_arg *arg)
 {
-      printf("philos check %d\n",philos->num_of_philo);
-        printf("philos check %d\n",philos->time_to_die);
-        printf("philos check %d\n",philos->time_to_eat);
-        printf("philos check %d\n",philos->time_to_sleep);
-        printf("philos check %d\n",philos->num_of_must_eat);
+  printf("arg check num of philo: %d\n", arg->num_of_philo);
+  printf("arg check time to die : %d\n", arg->time_to_die);
+  printf("arg check time to eat : %d\n", arg->time_to_eat);
+  printf("arg check timem to sleep : %d\n", arg->time_to_sleep);
+  printf("arg check must eat : %d\n", arg->num_of_must_eat);
+  printf("arg check time init : %d\n", arg->start_time);
 }
