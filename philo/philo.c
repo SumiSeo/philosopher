@@ -39,11 +39,10 @@ int init_info(t_arg *arg, char **argv)
     return 0;
 }
 
-void *philo_act(void *argv)
+void *philo_act(void *param)
 {
-    printf("HEllo I am thinkning\n");
-    // (void)philo;
-    (void)argv;
+    int id = *((int *)param);
+    printf("Thread created and working this function on it: %d\n", id);
     return NULL;
 }
 
@@ -52,16 +51,20 @@ int init_thread(t_arg *arg, t_philo *philo)
    
     int i;
     i = 0;
+
     while (i < arg->num_of_philo)
-    { 
+    {     
         philo->last_eat = get_time();
-        if (pthread_create(&(philo[i].thread), NULL, philo_act, &(philo[i])))
+        if(pthread_create(&(philo[i].thread), NULL, philo_act, (void *)&philo[i])) 
             return 1;
         i++;
     }
     i = 0;
     while (i < arg->num_of_philo)
-        pthread_join(philo[i++].thread, NULL);
+     {
+      pthread_join(philo[i].thread, NULL);
+      i++;}
+
     return 0;
 }
 
@@ -77,10 +80,13 @@ int init_philo(t_arg *arg, t_philo **philo)
         (*philo)[i].arg = arg;
         (*philo)[i].id = i;
         (*philo)[i].count_eat = 0;
-        (*philo)[i].left = i;
+        (*philo)[i].left = (i + arg->num_of_philo -1) % arg->num_of_philo;
         (*philo)[i].right = (i + 1) % arg->num_of_philo;
         i++;
     }
+    //here also I have init mutex
+    if(pthread_mutex_init(&arg->lock,NULL))
+        return 1;
     return 0;
 }
 

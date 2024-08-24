@@ -26,6 +26,7 @@ typedef struct s_arg
 	pthread_mutex_t *forks;
 	pthread_mutex_t print;
 	pthread_mutex_t time;
+	pthread_mutex_t lock;
 } t_arg;
 
 typedef struct s_philo
