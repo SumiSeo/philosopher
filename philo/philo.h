@@ -20,13 +20,12 @@ typedef struct s_arg
 	int time_to_eat;
 	int time_to_sleep;
 	int num_of_must_eat;
-	int finish;
+	int is_dead;
 	int finished_eat;
 	long long thread_start;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print;
 	pthread_mutex_t time;
-	pthread_mutex_t lock;
 } t_arg;
 
 typedef struct s_philo
@@ -36,7 +35,6 @@ typedef struct s_philo
 	int left;
 	int right;
 	long last_eat;
-	long thread_start;
 	pthread_t thread;
 	struct s_arg *arg;
 } t_philo;
@@ -50,5 +48,12 @@ int print_error(char *msg);
 int	ft_atoi(const char *nbtr, int *error);
 long long	get_time(void);
 void print_all_info(t_arg *arg);
+void philo_print(t_arg *arg, int i, char *s);
+
+
+
+//execution
+void    philo_check_finish(t_arg *arg,t_philo *philo);
+
 
 #endif
