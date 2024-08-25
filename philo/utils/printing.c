@@ -9,7 +9,7 @@ int philo_print(t_arg *arg, int id, char *msg)
         return -1;
     pthread_mutex_lock(&(arg->print));
     if(!(arg->is_dead))
-        printf("%lld X %d %s\n",now-arg->thread_start,id+1, msg);
+        printf("%lld %d %s\n", now - arg->thread_start, id + 1, msg);
     pthread_mutex_unlock(&(arg->print));
     return 0;
 }

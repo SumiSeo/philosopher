@@ -32,7 +32,12 @@ int init_info(t_arg *arg, char **argv)
     if (arg->num_of_philo <= 0 || arg->time_to_eat <= 0 || arg->time_to_die <= 0 || arg->time_to_sleep <= 0)
         return 1;
     if (argv[5] != NULL)
-        arg->num_of_must_eat = ft_atoi(argv[5], &error);
+     {   arg->num_of_must_eat = ft_atoi(argv[5], &error);
+        if(arg->num_of_must_eat <= 0)
+            return 1;
+        if(arg->num_of_philo==1)
+            arg->num_of_must_eat=0;
+     }
     if (arg_init_mutex(arg))
         return 1;
     return 0;

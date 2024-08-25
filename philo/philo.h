@@ -25,7 +25,6 @@ typedef struct s_arg
 	long long thread_start;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print;
-	pthread_mutex_t time;
 } t_arg;
 
 typedef struct s_philo
@@ -50,6 +49,7 @@ long long	get_time(void);
 void pass_time(long long wait_time, t_arg *arg);
 void print_all_info(t_arg *arg);
 int philo_print(t_arg *arg, int id, char *msg);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int arg_init_mutex(t_arg *arg);
 int init_info(t_arg *arg, char **argv);
