@@ -20,7 +20,7 @@ void    philo_check_finish(t_arg *arg,t_philo *philo)
         while(i < arg->num_of_philo)
         {
             now = get_time();
-            if((now - philo[i].last_eat) >= arg -> time_to_die)
+            if((now - philo[i].last_eat) >= arg->time_to_die)
             {
                 philo_print(arg,i,"died");
                 arg->is_dead = 1;
