@@ -1,41 +1,5 @@
 #include "philo.h"
-int arg_init_mutex(t_arg *arg)
-{
-    int i;
-    if (pthread_mutex_init(&(arg->print), NULL))
-        return 1;
-    arg->forks = malloc(sizeof(pthread_mutex_t) * arg->num_of_philo);
-    if (!(arg->forks))
-        return 1;
-    i = 0;
-    while (i < arg->num_of_philo)
-    {
-        if (pthread_mutex_init(&(arg->forks[i]), NULL))
-            return 1;
-        i++;
-    }
-    return 0;
-}
 
-int init_info(t_arg *arg, char **argv)
-{
-    int error;
-
-    error = 0;
-    arg->num_of_philo = ft_atoi(argv[1], &error);
-    arg->time_to_die = ft_atoi(argv[2], &error);
-    arg->time_to_eat = ft_atoi(argv[3], &error);
-    arg->time_to_sleep = ft_atoi(argv[4], &error);
-    arg->thread_start = get_time();
-
-    if (arg->num_of_philo <= 0 || arg->time_to_eat <= 0 || arg->time_to_die <= 0 || arg->time_to_sleep <= 0)
-        return 1;
-    if (argv[5] != NULL)
-        arg->num_of_must_eat = ft_atoi(argv[5], &error);
-    if (arg_init_mutex(arg))
-        return 1;
-    return 0;
-}
 
 int philo_act(t_arg *arg, t_philo *philo)
 {
@@ -47,6 +11,7 @@ int philo_act(t_arg *arg, t_philo *philo)
         philo_print(arg, philo->id, "is eating ");
         philo->last_eat = get_time();
         philo->count_eat++;
+        pass_time((long long)arg->time_to_eat,arg);
         pthread_mutex_unlock(&(arg->forks[philo->right]));
 
     }
@@ -91,8 +56,6 @@ int init_thread(t_arg *arg, t_philo *philo)
             return 1;
         i++;
     }
-    //everytime when I create thread, and do work in the thread
-    // I need to check if is there any cases that one of philo died
     philo_check_finish(arg,philo);
     i = 0;
     while (i < arg->num_of_philo)
@@ -116,7 +79,6 @@ int init_philo(t_arg *arg, t_philo **philo)
         (*philo)[i].arg = arg;
         (*philo)[i].id = i;
         (*philo)[i].count_eat = 0;
-        // to check when is the last time philosopher eat the meal
         (*philo)[i].last_eat = get_time();
         (*philo)[i].left = (i + arg->num_of_philo - 1) % arg->num_of_philo;
         (*philo)[i].right = (i + 1) % arg->num_of_philo;
@@ -143,7 +105,5 @@ int main(int argc, char **argv)
         if (init_thread(&arg, philo))
             return (print_error("thread start fail"));
     }
-    // print_all_info(&arg);
-    // pthread_mutex_destroy()
     return 0;
 }

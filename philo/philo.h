@@ -47,10 +47,12 @@ int print_error(char *msg);
 //parsing
 int	ft_atoi(const char *nbtr, int *error);
 long long	get_time(void);
+void pass_time(long long wait_time, t_arg *arg);
 void print_all_info(t_arg *arg);
-void philo_print(t_arg *arg, int i, char *s);
+int philo_print(t_arg *arg, int id, char *msg);
 
-
+int arg_init_mutex(t_arg *arg);
+int init_info(t_arg *arg, char **argv);
 
 //execution
 void    philo_check_finish(t_arg *arg,t_philo *philo);

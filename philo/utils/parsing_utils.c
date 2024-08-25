@@ -1,5 +1,18 @@
 #include "../philo.h"
 
+void pass_time(long long wait_time, t_arg *arg)
+{
+	long long start;
+	long long now;
+	start = get_time();
+	while(!(arg->is_dead))
+	{
+		now = get_time();
+		if((now-start) >= wait_time)
+			break;
+		usleep(10);
+	}
+}
 long long	get_time(void)
 {
 	struct timeval	mytime;

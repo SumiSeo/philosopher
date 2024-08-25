@@ -1,8 +1,15 @@
 #include "../philo.h"
 
 
-void philo_print(t_arg *arg, int i, char *s)
+int philo_print(t_arg *arg, int id, char *msg)
 {
-    (void)arg;
-    printf("%d %s\n",i, s);
+    long long now;
+    now = get_time();
+    if(now == -1)
+        return -1;
+    pthread_mutex_lock(&(arg->print));
+    if(!(arg->is_dead))
+        printf("%lld X %d %s\n",now-arg->thread_start,id+1, msg);
+    pthread_mutex_unlock(&(arg->print));
+    return 0;
 }

@@ -2,7 +2,7 @@ NAME = philo
 
 # SRCS AND OBJS FOR COMPILING
 SRCS = philo.c error_handler/error_print.c utils/parsing_utils.c \
-utils/printing.c utils/philo_exec.c
+utils/printing.c utils/philo_exec.c utils/init_arg.c
 
 OBJ_DIR = obj 
 
