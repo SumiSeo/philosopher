@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:44 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:31:43 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:43:55 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,20 @@ int	print_error(char *msg)
 void	free_all(t_arg *arg, t_philo *philo)
 {
 	int i;
-	i = 0;
-	while (i < arg->num_of_philo)
+
+	if (philo != NULL)
 	{
+		if (arg->forks != NULL)
+		{
+			i = 0;
+			while (i < arg->num_of_philo)
+			{
+				pthread_mutex_destroy(&(arg->forks[i]));
+				i++;
+			}
+			free(arg->forks);
+		}
 		free(philo);
-		i++;
 	}
-	free(arg->forks);
+	pthread_mutex_destroy(&(arg->print));
 }
