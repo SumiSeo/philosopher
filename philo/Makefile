@@ -25,7 +25,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 			$(CC) $(OBJS) -o $(NAME) 
 clean : 
-			rm -rf $(OBJ_DIR)
+			rm -rf $(OBJS)
 
 fclean : clean	
 			rm -rf $(NAME)

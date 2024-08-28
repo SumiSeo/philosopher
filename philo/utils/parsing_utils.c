@@ -1,15 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/28 09:13:10 by sumseo            #+#    #+#             */
+/*   Updated: 2024/08/28 09:13:12 by sumseo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
-void pass_time(long long wait_time, t_arg *arg)
+void	pass_time(long long wait_time, t_arg *arg)
 {
-	long long start;
-	long long now;
+	long long	start;
+	long long	now;
+
 	start = get_time();
-	while(!(arg->is_dead))
+	while (!(arg->is_dead))
 	{
 		now = get_time();
-		if((now-start) >= wait_time)
-			break;
+		if ((now - start) >= wait_time)
+			break ;
 		usleep(10);
 	}
 }
@@ -52,7 +65,7 @@ int	ft_atoi(const char *nbtr, int *error)
 }
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < n)
