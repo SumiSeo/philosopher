@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:10 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 09:13:12 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:18:46 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	pass_time(long long wait_time, t_arg *arg)
 		usleep(10);
 	}
 }
+
 long long	get_time(void)
 {
 	struct timeval	mytime;
@@ -63,9 +64,10 @@ int	ft_atoi(const char *nbtr, int *error)
 		*error = 2;
 	return (sign * nb);
 }
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)

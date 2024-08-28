@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:36 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 14:40:35 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:19:55 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ int	init_philo(t_arg *arg, t_philo **philo)
 
 int	main(int argc, char **argv)
 {
-	t_arg arg;
-	t_philo *philo;
+	t_arg		arg;
+	t_philo		*philo;
+
 	memset(&arg, 0, sizeof(t_arg));
 	if (argc != 5 && argc != 6)
 		print_error("Please check argument number\n");
@@ -98,6 +99,5 @@ int	main(int argc, char **argv)
 		if (init_thread(&arg, philo))
 			return (print_error("thread start fail"));
 	}
-	// printf("Everyone is full");
 	return (0);
 }

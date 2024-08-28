@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:18 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 09:32:29 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:19:13 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	arg_init_mutex(t_arg *arg)
 
 int	init_info(t_arg *arg, char **argv)
 {
-	int error;
+	int		error;
 
 	error = 0;
 	arg->num_of_philo = ft_atoi(argv[1], &error);
@@ -41,7 +41,6 @@ int	init_info(t_arg *arg, char **argv)
 	arg->time_to_eat = ft_atoi(argv[3], &error);
 	arg->time_to_sleep = ft_atoi(argv[4], &error);
 	arg->thread_start = get_time();
-
 	if (arg->num_of_philo <= 0 || arg->time_to_eat <= 0 || arg->time_to_die <= 0
 		|| arg->time_to_sleep <= 0)
 		return (1);
@@ -50,8 +49,6 @@ int	init_info(t_arg *arg, char **argv)
 		arg->num_of_must_eat = ft_atoi(argv[5], &error);
 		if (arg->num_of_must_eat <= 0)
 			return (1);
-		// if (arg->num_of_philo == 1)
-		// 	arg->num_of_must_eat = 0;
 	}
 	if (arg_init_mutex(arg))
 		return (1);
