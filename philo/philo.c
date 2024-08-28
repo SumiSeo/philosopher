@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:36 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 14:27:24 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:40:35 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*thread_act(void *param)
 			arg->finished_eat++;
 			break ;
 		}
-		philo_print(arg, i, "is sleeping");
+		philo_print(arg, philo->id, "is sleeping");
 		pass_time((long long)arg->time_to_sleep, arg);
 		philo_print(arg, philo->id, "is thinking");
 	}
@@ -98,6 +98,6 @@ int	main(int argc, char **argv)
 		if (init_thread(&arg, philo))
 			return (print_error("thread start fail"));
 	}
-	printf("Everyone is full");
+	// printf("Everyone is full");
 	return (0);
 }
