@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:18:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:18:04 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:22:36 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,16 @@ typedef struct s_philo
 	struct s_arg	*arg;
 }					t_philo;
 
-// error handler
 int					print_error(char *msg);
-
-// parsing
 int					ft_atoi(const char *nbtr, int *error);
 long long			get_time(void);
 void				pass_time(long long wait_time, t_arg *arg);
 void				print_all_info(t_arg *arg);
 int					philo_print(t_arg *arg, int id, char *msg);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
-
 int					arg_init_mutex(t_arg *arg);
 int					init_info(t_arg *arg, char **argv);
-
-// execution
+void				free_all(t_arg *arg, t_philo *philo);
 void				philo_check_finish(t_arg *arg, t_philo *philo);
 int					philo_act(t_arg *arg, t_philo *philo);
 #endif
