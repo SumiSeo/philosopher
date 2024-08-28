@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:36 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 09:13:37 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:27:24 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	*thread_act(void *param)
 {
 	t_arg	*arg;
 	t_philo	*philo;
+	int		i;
 
 	philo = param;
 	arg = philo->arg;
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 		usleep(1000);
+	i = 0;
 	while (!arg->is_dead)
 	{
 		philo_act(arg, philo);
@@ -29,9 +31,9 @@ void	*thread_act(void *param)
 			arg->finished_eat++;
 			break ;
 		}
-		philo_print(arg, philo->id, "is sleeping");
+		philo_print(arg, i, "is sleeping");
 		pass_time((long long)arg->time_to_sleep, arg);
-		philo_print(arg, philo->id, "is thiking");
+		philo_print(arg, philo->id, "is thinking");
 	}
 	return (0);
 }
@@ -43,16 +45,14 @@ int	init_thread(t_arg *arg, t_philo *philo)
 	i = 0;
 	while (i < arg->num_of_philo)
 	{
-		philo->last_eat = get_time();
-		// printf("FIRST Check last_eat time: %d:  %ld\n", philo->id,
-		// philo->last_eat);
-		if (pthread_create(&(philo[i].thread), NULL, thread_act,
+		philo[i].last_eat_time = get_time();
+		if (pthread_create(&philo[i].thread, NULL, thread_act,
 				(void *)&philo[i]))
 			return (1);
 		i++;
 	}
-	philo_check_finish(arg, philo);
 	i = 0;
+	philo_check_finish(arg, philo);
 	while (i < arg->num_of_philo)
 	{
 		pthread_join(philo[i].thread, NULL);
@@ -74,8 +74,8 @@ int	init_philo(t_arg *arg, t_philo **philo)
 		(*philo)[i].arg = arg;
 		(*philo)[i].id = i;
 		(*philo)[i].count_eat = 0;
-		(*philo)[i].last_eat = get_time();
-		(*philo)[i].left = (i + arg->num_of_philo - 1) % arg->num_of_philo;
+		(*philo)[i].last_eat_time = get_time();
+		(*philo)[i].left = i;
 		(*philo)[i].right = (i + 1) % arg->num_of_philo;
 		i++;
 	}
@@ -98,6 +98,6 @@ int	main(int argc, char **argv)
 		if (init_thread(&arg, philo))
 			return (print_error("thread start fail"));
 	}
-
+	printf("Everyone is full");
 	return (0);
 }

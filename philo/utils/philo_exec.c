@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:24 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 09:18:26 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 14:26:18 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	philo_act(t_arg *arg, t_philo *philo)
 		pthread_mutex_lock(&(arg->forks[philo->right]));
 		philo_print(arg, philo->id, "has taken a fork");
 		philo_print(arg, philo->id, "is eating");
-		philo->last_eat = get_time();
-		// printf("SECOND Check last_eat time: %d:  %ld\n", philo->id,
-		// 	philo->last_eat);
+		philo->last_eat_time = get_time();
 		philo->count_eat++;
 		pass_time((long long)arg->time_to_eat, arg);
 		pthread_mutex_unlock(&(arg->forks[philo->right]));
@@ -37,11 +35,10 @@ void	philo_check_finish(t_arg *arg, t_philo *philo)
 	int			i;
 	long long	now;
 
-	i = 0;
 	while (!arg->is_dead)
 	{
 		if ((arg->num_of_must_eat != 0)
-			&& (arg->num_of_philo == arg->finished_eat))
+			&& arg->finished_eat == arg->num_of_must_eat)
 		{
 			arg->is_dead = 1;
 			break ;
@@ -50,14 +47,13 @@ void	philo_check_finish(t_arg *arg, t_philo *philo)
 		while (i < arg->num_of_philo)
 		{
 			now = get_time();
-			if ((now - philo[i].last_eat) >= arg->time_to_die)
+			if ((now - philo[i].last_eat_time >= arg->time_to_die))
 			{
-				philo_print(arg, i, "died");
+				philo_print(arg, i, "is died");
 				arg->is_dead = 1;
 				break ;
 			}
 			i++;
 		}
-		usleep(1000);
 	}
 }

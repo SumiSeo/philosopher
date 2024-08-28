@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:18 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 09:13:19 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 09:32:29 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	init_info(t_arg *arg, char **argv)
 		arg->num_of_must_eat = ft_atoi(argv[5], &error);
 		if (arg->num_of_must_eat <= 0)
 			return (1);
-		if (arg->num_of_philo == 1)
-			arg->num_of_must_eat = 0;
+		// if (arg->num_of_philo == 1)
+		// 	arg->num_of_must_eat = 0;
 	}
 	if (arg_init_mutex(arg))
 		return (1);

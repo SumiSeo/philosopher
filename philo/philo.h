@@ -32,7 +32,7 @@ typedef struct s_philo
 	int				count_eat;
 	int				left;
 	int				right;
-	long			last_eat;
+	long			last_eat_time;
 	pthread_t		thread;
 	struct s_arg	*arg;
 }					t_philo;
