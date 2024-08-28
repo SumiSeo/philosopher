@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:44 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:43:55 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:47:30 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	print_error(char *msg)
 
 void	free_all(t_arg *arg, t_philo *philo)
 {
-	int i;
+	int		i;
 
 	if (philo != NULL)
 	{
