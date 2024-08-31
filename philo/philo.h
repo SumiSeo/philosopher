@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:18:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/31 18:12:53 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 18:36:24 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,6 @@ int					philo_act(t_arg *arg, t_philo *philo);
 void				print_status(t_arg *arg, t_philo *philo);
 void				add_finished_eat(t_arg *arg);
 void				is_really_dead(int i, t_arg *arg, t_philo *philo);
+void				unlock_mutex_fork(t_arg *arg, t_philo *philo);
+void				philo_one_fork_act(t_arg *arg, t_philo *philo);
 #endif

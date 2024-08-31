@@ -6,30 +6,54 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:24 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/31 18:15:05 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 18:37:09 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	philo_act(t_arg *arg, t_philo *philo)
+void	philo_one_fork_act(t_arg *arg, t_philo *philo)
 {
 	pthread_mutex_lock(&(arg->forks[philo->left]));
 	philo_print(arg, philo->id, "has taken a fork");
-	if (arg->num_of_philo > 1)
+	pthread_mutex_unlock(&(arg->forks[philo->left]));
+}
+
+int	philo_act(t_arg *arg, t_philo *philo)
+{
+	if (arg->num_of_philo == 1)
+		philo_one_fork_act(arg, philo);
+	else
 	{
-		pthread_mutex_lock(&(arg->forks[philo->right]));
-		philo_print(arg, philo->id, "has taken a fork");
+		if (philo->id % 2)
+		{
+			pthread_mutex_lock(&(arg->forks[philo->left]));
+			philo_print(arg, philo->id, "has taken a fork");
+			pthread_mutex_lock(&(arg->forks[philo->right]));
+			philo_print(arg, philo->id, "has taken a fork");
+		}
+		else
+		{
+			pthread_mutex_lock(&(arg->forks[philo->right]));
+			philo_print(arg, philo->id, "has taken a fork");
+			pthread_mutex_lock(&(arg->forks[philo->left]));
+			philo_print(arg, philo->id, "has taken a fork");
+		}
 		philo_print(arg, philo->id, "is eating");
 		pthread_mutex_lock(&(arg->dead_mutex));
 		philo->last_eat_time = get_time();
 		pthread_mutex_unlock(&(arg->dead_mutex));
-		philo->count_eat++;
-		pass_time((long long)arg->time_to_eat, arg);
-		pthread_mutex_unlock(&(arg->forks[philo->right]));
+		unlock_mutex_fork(arg, philo);
 	}
-	pthread_mutex_unlock(&(arg->forks[philo->left]));
 	return (1);
+}
+
+void	unlock_mutex_fork(t_arg *arg, t_philo *philo)
+{
+	philo->count_eat++;
+	pass_time((long long)arg->time_to_eat, arg);
+	pthread_mutex_unlock(&(arg->forks[philo->right]));
+	pthread_mutex_unlock(&(arg->forks[philo->left]));
 }
 
 void	philo_check_finish(t_arg *arg, t_philo *philo)
