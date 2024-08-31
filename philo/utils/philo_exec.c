@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:24 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/31 18:37:09 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 19:31:14 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ int	philo_act(t_arg *arg, t_philo *philo)
 		philo_one_fork_act(arg, philo);
 	else
 	{
-		if (philo->id % 2)
+		if (philo->id % 2 != 0)
 		{
-			pthread_mutex_lock(&(arg->forks[philo->left]));
-			philo_print(arg, philo->id, "has taken a fork");
 			pthread_mutex_lock(&(arg->forks[philo->right]));
+			philo_print(arg, philo->id, "has taken a fork");
+			pthread_mutex_lock(&(arg->forks[philo->left]));
 			philo_print(arg, philo->id, "has taken a fork");
 		}
 		else
 		{
-			pthread_mutex_lock(&(arg->forks[philo->right]));
-			philo_print(arg, philo->id, "has taken a fork");
 			pthread_mutex_lock(&(arg->forks[philo->left]));
+			philo_print(arg, philo->id, "has taken a fork");
+			pthread_mutex_lock(&(arg->forks[philo->right]));
 			philo_print(arg, philo->id, "has taken a fork");
 		}
 		philo_print(arg, philo->id, "is eating");

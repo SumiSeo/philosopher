@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:30 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/31 18:10:07 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 19:26:51 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,6 @@ void	print_status(t_arg *arg, t_philo *philo)
 	philo_print(arg, philo->id, "is sleeping");
 	pass_time((long long)arg->time_to_sleep, arg);
 	philo_print(arg, philo->id, "is thinking");
+	if (arg->num_of_philo % 2)
+		pass_time((long long)2 * arg->time_to_eat - arg->time_to_sleep, arg);
 }
