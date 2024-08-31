@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:36 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/31 15:01:46 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 18:06:49 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,36 @@ void	*thread_act(void *param)
 {
 	t_arg	*arg;
 	t_philo	*philo;
-	int		i;
 
-	philo = param;
+	philo = (t_philo *)param;
 	arg = philo->arg;
 	if (philo->id % 2 != 0)
 		usleep(1000);
-	i = 0;
-	while (!arg->is_dead)
+	while (1)
 	{
+		pthread_mutex_lock(&(arg->dead_mutex));
+		if (arg->is_dead)
+		{
+			pthread_mutex_unlock(&(arg->dead_mutex));
+			break ;
+		}
+		pthread_mutex_unlock(&(arg->dead_mutex));
 		philo_act(arg, philo);
 		if (arg->num_of_must_eat == philo->count_eat)
 		{
-			arg->finished_eat++;
+			add_finished_eat(arg);
 			break ;
 		}
-		philo_print(arg, philo->id, "is sleeping");
-		pass_time((long long)arg->time_to_sleep, arg);
-		philo_print(arg, philo->id, "is thinking");
+		print_status(arg, philo);
 	}
-	return (0);
+	return (NULL);
+}
+
+void	add_finished_eat(t_arg *arg)
+{
+	pthread_mutex_lock(&(arg->dead_mutex));
+	arg->finished_eat++;
+	pthread_mutex_unlock(&(arg->dead_mutex));
 }
 
 int	init_thread(t_arg *arg, t_philo *philo)

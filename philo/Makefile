@@ -16,11 +16,9 @@ CFLAGS = -pthread -Wall -Werror -Wextra
 DEBUGGER = -g3
 
 all : $(NAME)
-# $(OBJ_DIR)/%.o : %.c
-# 				mkdir -p $(dir $@)
-# 				$(CC) $(CFLAGS) $(DEBUGGER) -c $< -o $@
+
 %.o : %.c 
-		$(CC) $(CFLAGS) -c $< -o $@ #(DEBUGGER)
+		$(CC) $(CFLAGS) -c $< -o $@ $(DEBUGGER)
 
 $(NAME) : $(OBJS)
 			$(CC) $(OBJS) -o $(NAME) 

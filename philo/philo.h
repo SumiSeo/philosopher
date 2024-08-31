@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:18:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:22:36 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 18:12:53 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ typedef struct s_arg
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_must_eat;
-	int				is_dead;
 	int				finished_eat;
 	long long		thread_start;
+	int				is_dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	dead_mutex;
 }					t_arg;
 
 typedef struct s_philo
@@ -61,4 +62,7 @@ int					init_info(t_arg *arg, char **argv);
 void				free_all(t_arg *arg, t_philo *philo);
 void				philo_check_finish(t_arg *arg, t_philo *philo);
 int					philo_act(t_arg *arg, t_philo *philo);
+void				print_status(t_arg *arg, t_philo *philo);
+void				add_finished_eat(t_arg *arg);
+void				is_really_dead(int i, t_arg *arg, t_philo *philo);
 #endif

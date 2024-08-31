@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:18 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:19:13 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:24:19 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	arg_init_mutex(t_arg *arg)
 	int	i;
 
 	if (pthread_mutex_init(&(arg->print), NULL))
+		return (1);
+	if (pthread_mutex_init(&(arg->dead_mutex), NULL))
 		return (1);
 	arg->forks = malloc(sizeof(pthread_mutex_t) * arg->num_of_philo);
 	if (!(arg->forks))
@@ -33,7 +35,7 @@ int	arg_init_mutex(t_arg *arg)
 
 int	init_info(t_arg *arg, char **argv)
 {
-	int		error;
+	int	error;
 
 	error = 0;
 	arg->num_of_philo = ft_atoi(argv[1], &error);

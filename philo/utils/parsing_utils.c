@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:10 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:18:46 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:56:56 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ void	pass_time(long long wait_time, t_arg *arg)
 	long long	now;
 
 	start = get_time();
-	while (!(arg->is_dead))
+	pthread_mutex_lock(&(arg->dead_mutex));
+	while (!arg->is_dead)
 	{
 		now = get_time();
 		if ((now - start) >= wait_time)
 			break ;
+		pthread_mutex_unlock(&(arg->dead_mutex));
 		usleep(10);
+		pthread_mutex_lock(&(arg->dead_mutex));
 	}
+	pthread_mutex_unlock(&(arg->dead_mutex));
 }
 
 long long	get_time(void)
