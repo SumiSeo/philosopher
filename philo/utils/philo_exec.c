@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:24 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:06:21 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 10:27:27 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ void	philo_check_finish(t_arg *arg, t_philo *philo)
 	while (!arg->is_dead)
 	{
 		if ((arg->num_of_must_eat != 0)
-			&& arg->finished_eat == arg->num_of_must_eat)
+			&& arg->finished_eat >= arg->num_of_philo)
 		{
+			printf("Everyone is full");
 			arg->is_dead = 1;
 			break ;
 		}
