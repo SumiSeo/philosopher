@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:24 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/31 10:27:27 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 14:49:42 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	philo_check_finish(t_arg *arg, t_philo *philo)
 			}
 			i++;
 		}
-		usleep(1000);
+		usleep(100);
 	}
 }

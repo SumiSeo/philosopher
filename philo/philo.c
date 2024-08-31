@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:13:36 by sumseo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:36:21 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/08/31 14:53:18 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*thread_act(void *param)
 	philo = param;
 	arg = philo->arg;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(arg->time_to_eat * 1000);
 	i = 0;
 	while (!arg->is_dead)
 	{
